@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+# A graphial interface to select page formats.
+
+
 import json
 import PySimpleGUI as sg
 
@@ -7,9 +10,11 @@ import PySimpleGUI as sg
 def load_paper_data(standards = '', formats = '', units = ''):
 
     # Load paper data from reference file into a dictionary.
+
     with open('all_paper_sizes.json') as file_paper_sizes:
         data_paper_sizes = json.load(file_paper_sizes)
 
+    # Report to console recieved parameters
     if standards != '':
         print('\n-------------\n  SELECTION \n-------------')
         print('load_paper_data():')
@@ -19,6 +24,7 @@ def load_paper_data(standards = '', formats = '', units = ''):
         # print('> sizes = {}'.format(paper_data['paper_sizes']))
         print('-------------')
 
+    # Dictionary for returning values of paper selections
     paper_data = {
         "paper_standards": [],
         "paper_formats": [],
@@ -26,18 +32,19 @@ def load_paper_data(standards = '', formats = '', units = ''):
         "paper_sizes": [],
     }
 
-    for standard, void in data_paper_sizes.items():
-        paper_data["paper_standards"].append(standard)
-
-
+    # Populate "paper_standards".
+    # Return dictionary with "paper_standards"
     if standards == '':
+        for standard, void in data_paper_sizes.items():
+            paper_data["paper_standards"].append(standard)
         print('\n-------------')
         print('> standards = {}'.format(paper_data['paper_standards']))
         print('-------------')
         return paper_data
 
+    # Select a paper standard if argument provided
+    # then populate "paper_formats".
     if standards != '':
-
         for formats, void in data_paper_sizes[standards].items():
             paper_data['paper_formats'].append(formats)
         print('\n-------------')
@@ -48,7 +55,8 @@ def load_paper_data(standards = '', formats = '', units = ''):
     if formats != '':
         for units, void in data_paper_sizes[standards][formats].items():
             paper_data['paper_units'].append(units)
-            paper_data['paper_sizes'] = data_paper_sizes[standards][formats][units]
+        # for sizes, void in data_paper_sizes[standards][formats][units]:
+        paper_data['paper_sizes'] = data_paper_sizes[standards][formats][units]
 
         print('\n-------------')
         print('> units = {}'.format(paper_data['paper_units']))
@@ -64,7 +72,7 @@ def load_paper_data(standards = '', formats = '', units = ''):
         # print('> dimension = {}'.format(paper_data['paper_sizes']))
         print('-------------')
 
-        return paper_data
+    return paper_data
 
 
 def load_options(box = None):
