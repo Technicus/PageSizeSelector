@@ -10,7 +10,6 @@ import PySimpleGUI as sg
 def load_paper_data(standards = '', formats = '', units = ''):
 
     # Load paper data from reference file into a dictionary.
-
     with open('all_paper_sizes.json') as file_paper_sizes:
         data_paper_sizes = json.load(file_paper_sizes)
 
@@ -75,32 +74,7 @@ def load_paper_data(standards = '', formats = '', units = ''):
     return paper_data
 
 
-def load_options(box = None):
-
-    return options
-
-def draw_combo_boxes():
-
-    options = {
-        "font": ('Helvetica', 16),
-        "size": (15, 1),
-        "readonly": True,
-        "enable_events": True,
-    }
-
-    layout = [
-       [sg.Combo(list(items.keys()), **options, key="mainproject")],
-       [sg.Combo((),                 **options, key="subproject")],
-    ]
-
-    # return combo_box_standards, combo_box_formats, combo_box_units
-    return layout
-
-# def draw_window(layout = None):
-def draw_window():
-
-    # paper_data = load_paper_data(standards = 'Architectural paper sizes', formats = 'Arch E1', units = 'mm')
-    paper_data = load_paper_data(standards = '')
+def draw_window(paper_data = None):
 
     options = {
         "font": ('Helvetica', 16),
@@ -119,8 +93,10 @@ def draw_window():
        # [sg.Text()],
     ]
 
-    window = sg.Window('Page Size Selector', layout, keep_on_top=True)
+    return sg.Window('Page Size Selector', layout, keep_on_top=True)
 
+
+def  evaluate_window(window = None):
     while True:
 
         event, values = window.read()
@@ -164,17 +140,20 @@ def draw_window():
 
     window.close()
 
+def main():
+
+    # Create paper_data object for summoning paper sizes.
+    paper_data = load_paper_data()
+
+    # Create a window object for evaluating with given paper data.
+    PaperSizeSelector_window = draw_window(paper_data)
+
+    # Evaluate the window actions.
+    evaluate_window(PaperSizeSelector_window)
 
 # Starting from terminal
 if __name__ == "__main__":
-    # paper_data = load_paper_data(standards = 'Architectural paper sizes', formats = True, units = None, sizes = None)
-    # paper_data = load_paper_data(standards = 'Architectural paper sizes', formats = 'Arch E1', units = 'mm')
-    # print('\n-------------')
-    # print('paper_standards:\n> {}\n'.format(paper_data["paper_standards"]))
-    # print('paper_formats:\n> {}\n'.format(paper_data["paper_formats"]))
-    # print('paper_units:\n> {}\n'.format(paper_data["paper_units"]))
-    # print('paper_sizes:\n> {}'.format(paper_data["paper_sizes"]))
-    # print('-------------')
-    # print()
 
-    draw_window()
+    # Go into the program function
+    main()
+
