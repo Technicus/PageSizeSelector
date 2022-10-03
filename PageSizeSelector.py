@@ -60,6 +60,11 @@ def load_paper_data(standards = '', formats = '', units = '', unit = ''):
         # return paper_data
 
     if formats != '':
+        print('data_paper_sizes[standards][formats].items(): {}'.format(type(data_paper_sizes[standards][formats].items())))
+        print('data_paper_sizes[standards][formats].items(): {}'.format(data_paper_sizes[standards][formats].items()))
+        print('paper_data[\'paper_units\']: {}'.format(type(paper_data['paper_units'])))
+        print('paper_data[\'paper_units\']: {}'.format(paper_data['paper_units']))
+
         for units, void in data_paper_sizes[standards][formats].items():
             print(units)
             paper_data['paper_units'].append(units)
@@ -72,7 +77,13 @@ def load_paper_data(standards = '', formats = '', units = '', unit = ''):
         # paper_data['paper_sizes'] = data_paper_sizes[standards][formats][0]
         paper_data['paper_sizes'] = data_paper_sizes[standards][formats][units]
         # paper_data['paper_sizes'] = data_paper_sizes[standards][formats][unit]
-        print('data_paper_sizes: {}'.format(data_paper_sizes[standards][formats][units]))
+        print('type(data_paper_sizes): {}'.format(type(data_paper_sizes)))
+        print('type(data_paper_sizes[standards][formats]): {}'.format(type(data_paper_sizes[standards][formats])))
+        print('data_paper_sizes[standards][formats]: {}'.format(data_paper_sizes[standards][formats]))
+        print('type(data_paper_sizes[standards][formats][units]): {}'.format(type(data_paper_sizes[standards][formats][units])))
+        print('data_paper_sizes[standards][formats][units]: {}'.format(data_paper_sizes[standards][formats][units]))
+        print('data_paper_sizes[standards][formats][units][0]: {}'.format(data_paper_sizes[standards][formats][units][0]))
+        print('-------------')
 
 
         # if units == 'mm':
@@ -88,6 +99,12 @@ def load_paper_data(standards = '', formats = '', units = '', unit = ''):
         print('> units = {}'.format(units))
         print('> paper_data[\'paper_units\'] = {}'.format(paper_data['paper_units']))
         print('> unit = {}'.format(unit))
+        print('-------------')
+        if unit != '':
+            print(data_paper_sizes[standards][formats][unit])
+            paper_data['paper_sizes'] = data_paper_sizes[standards][formats][unit]
+        # for unit, value in data_paper_sizes[standards][formats].items():
+            # print(unit + " => " + value)
         # print('> sizes = {}'.format(sizes))
         print('-------------')
         print('> units = {}'.format(paper_data['paper_units']))
@@ -128,8 +145,8 @@ def draw_window(paper_data = None):
        [sg.Text('paper_units', key='-PAPER_UNITS-')],
        [sg.Combo((), **options, key="paper_units")],
        [sg.Text('paper_size', key='-PAPER_SIZE-')],
-       [sg.Text('0 X 0', key='-PAPER_DIMENSION-'),
-        sg.Text(paper_data['paper_units'])]
+       [sg.Text('0 X 0', key='-PAPER_DIMENSION-')],
+        # sg.Text(paper_data['paper_units'])]
        # [sg.Combo((), **options, key="paper_sizes")],
        # [sg.InputText(default_text = 'Default text', key='_DIMENSION_BOX_')],
        # [sg.Text()],
