@@ -13,7 +13,8 @@ def clear():
     _ = system("clear")
 
 
-def load_paper_data(standards = '', formats = '', units = ''):
+# def load_paper_data(standards = '', formats = '', unit = ''):
+def load_paper_data(standards = '', formats = '', units = '', unit = ''):
 
     # Load paper data from reference file into a dictionary.
     with open('all_paper_sizes.json') as file_paper_sizes:
@@ -53,14 +54,16 @@ def load_paper_data(standards = '', formats = '', units = ''):
         for formats, void in data_paper_sizes[standards].items():
             paper_data['paper_formats'].append(formats)
         print('\n-------------')
+        print('> standards = {}'.format(standards))
         print('> formats = {}'.format(paper_data['paper_formats']))
         print('-------------')
         # return paper_data
 
     if formats != '':
         for units, void in data_paper_sizes[standards][formats].items():
-            # print(units)
+            print(units)
             paper_data['paper_units'].append(units)
+        # paper_data['paper_units'] = units
         # for sizes, void in data_paper_sizes[standards][formats][units]:
             # print(sizes)
             # paper_data['paper_sizes'].append(sizes)
@@ -68,7 +71,8 @@ def load_paper_data(standards = '', formats = '', units = ''):
         # for sizes, void in data_paper_sizes[standards][formats][units]:
         # paper_data['paper_sizes'] = data_paper_sizes[standards][formats][0]
         paper_data['paper_sizes'] = data_paper_sizes[standards][formats][units]
-        print(data_paper_sizes[standards][formats][units])
+        # paper_data['paper_sizes'] = data_paper_sizes[standards][formats][unit]
+        print('data_paper_sizes: {}'.format(data_paper_sizes[standards][formats][units]))
 
 
         # if units == 'mm':
@@ -79,11 +83,17 @@ def load_paper_data(standards = '', formats = '', units = ''):
         #     units = 2
 
         print('\n-------------')
+        print('> standards = {}'.format(standards))
+        print('> formats = {}'.format(formats))
+        print('> units = {}'.format(units))
+        print('> paper_data[\'paper_units\'] = {}'.format(paper_data['paper_units']))
+        print('> unit = {}'.format(unit))
+        # print('> sizes = {}'.format(sizes))
+        print('-------------')
         print('> units = {}'.format(paper_data['paper_units']))
         print('> sizes = {}'.format(paper_data['paper_sizes']))
         print('> sizes = {}'.format(paper_data['paper_sizes'][0]))
         # print('> sizes = {}'.format(paper_data['paper_sizes'][units))
-
         print('-------------')
         # return paper_data
 
@@ -157,7 +167,7 @@ def  evaluate_window(window = None, paper_data = None):
 
         elif event == 'paper_units':
             seletion_paper_unit = values[event]
-            paper_data = load_paper_data(standards = seletion_paper_standard, formats = seletion_paper_format, units = seletion_paper_unit)
+            paper_data = load_paper_data(standards = seletion_paper_standard, formats = seletion_paper_format, units = seletion_paper_unit, unit = seletion_paper_unit)
             paper_size = str(paper_data['paper_sizes'][0]) + ' x ' + str(paper_data['paper_sizes'][1])
             window['-PAPER_DIMENSION-'].update(paper_size)
             # print('\n-------------')
