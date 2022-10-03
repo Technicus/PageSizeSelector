@@ -145,8 +145,8 @@ def draw_window(paper_data = None):
        [sg.Text('paper_units', key='-PAPER_UNITS-')],
        [sg.Combo((), **options, key="paper_units")],
        [sg.Text('paper_size', key='-PAPER_SIZE-')],
-       [sg.Text('0 X 0', key='-PAPER_DIMENSION-')],
-        # sg.Text(paper_data['paper_units'])]
+       [sg.Text('0 X 0', key='-PAPER_DIMENSION-'),
+        sg.Text(paper_data['paper_units'])]
        # [sg.Combo((), **options, key="paper_sizes")],
        # [sg.InputText(default_text = 'Default text', key='_DIMENSION_BOX_')],
        # [sg.Text()],
