@@ -99,6 +99,7 @@ def load_paper_data(standards = '', formats = '', units = '', unit = ''):
         print('> units = {}'.format(units))
         print('> paper_data[\'paper_units\'] = {}'.format(paper_data['paper_units']))
         print('> unit = {}'.format(unit))
+        paper_data['paper_unit'] = unit
         print('-------------')
         if unit != '':
             print(data_paper_sizes[standards][formats][unit])
@@ -146,7 +147,7 @@ def draw_window(paper_data = None):
        [sg.Combo((), **options, key="paper_units")],
        [sg.Text('paper_size', key='-PAPER_SIZE-')],
        [sg.Text('0 X 0', key='-PAPER_DIMENSION-'),
-        sg.Text(paper_data['paper_units'])]
+        sg.Text('units', key='-PAPER_DIMENSION_UNIT-')]
        # [sg.Combo((), **options, key="paper_sizes")],
        # [sg.InputText(default_text = 'Default text', key='_DIMENSION_BOX_')],
        # [sg.Text()],
@@ -187,6 +188,7 @@ def  evaluate_window(window = None, paper_data = None):
             paper_data = load_paper_data(standards = seletion_paper_standard, formats = seletion_paper_format, units = seletion_paper_unit, unit = seletion_paper_unit)
             paper_size = str(paper_data['paper_sizes'][0]) + ' x ' + str(paper_data['paper_sizes'][1])
             window['-PAPER_DIMENSION-'].update(paper_size)
+            window['-PAPER_DIMENSION_UNIT-'].update(paper_data['paper_unit'])
             # print('\n-------------')
             # print('paper_units: {}'.format(values[event]))
             # print('-------------')
